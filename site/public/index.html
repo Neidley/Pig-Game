@@ -29,13 +29,23 @@
                 </div>
             </div>
 
+            <form class="form" id="my-form" action="index.html" method="post">
+              <label for="winning-score">Set score to win:</label>
+              <input type="number" name="winning-score" id="score-to-win">
+              <input type="submit" value="Submit">
+            </form>
+
+            <p id="winning-points"></p>
+            <p id="double-six"></p>
+
             <button class="btn-new"><i class="ion-ios-plus-outline"></i>New game</button>
             <button class="btn-roll"><i class="ion-ios-loop"></i>Roll dice</button>
             <button class="btn-hold"><i class="ion-ios-download-outline"></i>Hold</button>
 
-            <img src="dice-5.png" alt="Dice" class="dice">
+            <img src="images/dice-5.png" alt="Dice" class="dice">
         </div>
 
-        <script src="js/app.js"></script>
+        <!--<script src="js/app.js"></script>-->
+        <script src="js/challenges.js"></script>
     </body>
 </html>
