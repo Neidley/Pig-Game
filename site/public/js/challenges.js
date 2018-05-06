@@ -12,37 +12,36 @@ current score when one of them is a 1. (Hint: you will need CSS to position the 
 dice, so take a look at the CSS code for the first one.)
 */
 
-var scores, roundScore, activePlayer, gamePlaying, lastRoll, winningScore;
+var scores, roundScore, activePlayer, gamePlaying, winningScore;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', function() {
   if (gamePlaying && winningScore) {
     // 1. Random number
-    var dice = Math.floor(Math.random() * 6) + 1;
+    var dice1 = Math.floor(Math.random() * 6) + 1;
+    var dice2 = Math.floor(Math.random() * 6) + 1;
 
     // 2. Display the result
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'images/dice-' + dice + '.png';
+    document.getElementById('dice-1').style.display = 'block';
+    document.getElementById('dice-2').style.display = 'block';
+    document.getElementById('dice-1').src = 'images/dice-' + dice1 + '.png';
+    document.getElementById('dice-2').src = 'images/dice-' + dice2 + '.png';
 
 
-    if (dice === 6 && lastRoll === 6) {
+    if (dice1 === 6 && dice2 === 6) {
       document.getElementById('double-six').textContent = 'Rolled Double Sixes! Player ' + (activePlayer + 1) + ' score reset!'
       scores[activePlayer] = 0;
       document.getElementById('score-' + activePlayer).textContent = scores[activePlayer];
       nextPlayer();
-    } else if (dice === 6) {
-      lastRoll = 6;
-    } else if (dice !== 6) {
-      lastRoll = 0;
+    } else {
       document.getElementById('double-six').textContent = '';
     }
 
     // 3. Update the round score IF the rolled number was NOT a 1
-    if (dice !== 1) {
+    if (dice1 !== 1 && dice2 !== 1) {
       //Add score
-      roundScore += dice;
+      roundScore += dice1 + dice2;
       document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
       //Next player
@@ -62,7 +61,8 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     // Check if player won the game
     if (scores[activePlayer] >= winningScore) {
       document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-      document.querySelector('.dice').style.display = 'none';
+      document.getElementById('dice-1').style.display = 'none';
+      document.getElementById('dice-2').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;
@@ -89,7 +89,8 @@ function nextPlayer() {
   //document.querySelector('.player-0-panel').classList.remove('active');
   //document.querySelector('.player-1-panel').classList.add('active');
 
-  document.querySelector('.dice').style.display = 'none';
+  document.getElementById('dice-1').style.display = 'none';
+  document.getElementById('dice-2').style.display = 'none';
 }
 
 document.querySelector('.btn-new').addEventListener('click', init);
@@ -125,7 +126,8 @@ function init() {
 
   document.getElementById('double-six').textContent = '';
 
-  document.querySelector('.dice').style.display = 'none';
+  document.getElementById('dice-1').style.display = 'none';
+  document.getElementById('dice-2').style.display = 'none';
 
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
